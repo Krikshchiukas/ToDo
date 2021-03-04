@@ -18,6 +18,7 @@ function initListItem(listItem) {
 
     listItem.onclick = function () {
         this.classList.toggle('checked');
+        saveListToLocalStorage();
     }
 }
 
@@ -35,7 +36,8 @@ function addItem() {
     }
 
     const item = {
-        value: inputValue
+        value: inputValue,
+        checked: false
     };
 
     addItemToList(item);
@@ -56,7 +58,8 @@ function saveListToLocalStorage() {
     let itemsArray = [];
     for (let i = 0; i < listItems.length; i++) {
         const item = {
-            value: listItems[i].firstChild.textContent
+            value: listItems[i].firstChild.textContent,
+            checked: listItems[i].classList.contains('checked')
         };
 
         itemsArray.push(item);
@@ -81,6 +84,10 @@ function addItemToList(item) {
     const listItemText = document.createTextNode(item.value);
     listItem.appendChild(listItemText);
     initListItem(listItem);
+
+    if (item.checked) {
+        listItem.classList.add('checked');
+    }
 
     list.appendChild(listItem);
 }
