@@ -34,7 +34,11 @@ function addItem() {
         return;
     }
 
-    addItemToList(inputValue);
+    const item = {
+        value: inputValue
+    };
+
+    addItemToList(item);
 
     saveListToLocalStorage();
 
@@ -51,7 +55,11 @@ function clearAll() {
 function saveListToLocalStorage() {
     let itemsArray = [];
     for (let i = 0; i < listItems.length; i++) {
-        itemsArray.push(listItems[i].firstChild.textContent);
+        const item = {
+            value: listItems[i].firstChild.textContent
+        };
+
+        itemsArray.push(item);
     }
 
     localStorage.setItem('items', JSON.stringify(itemsArray));
@@ -68,9 +76,9 @@ function loadListFromLocalStorage() {
 
 loadListFromLocalStorage();
 
-function addItemToList(itemValue) {
+function addItemToList(item) {
     const listItem = document.createElement('li');
-    const listItemText = document.createTextNode(itemValue);
+    const listItemText = document.createTextNode(item.value);
     listItem.appendChild(listItemText);
     initListItem(listItem);
 
